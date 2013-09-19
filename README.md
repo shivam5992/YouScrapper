@@ -5,6 +5,7 @@ A web crawler which fetches the result of youtube of a particular keyword given 
 
 Some points to remember:
 1. Import the db.sql file in your database.
+
 2. Activate cURL extension of PHP
 
-Working Prototype : <a href="shivambansal.com/scrapper">Here</a>
+Working Prototype : <a href="http://shivambansal.com/scrapper.php" target="_blank">Here</a>
