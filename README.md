@@ -1,12 +1,14 @@
 YouScrapper
 ===========
 
-A web crawler which fetches the result of youtube of a particular keyword given by the user and display them on your site.
+A web crawler which fetches the result of youtube page for a particular keyword given by the user 
+and displays them on your site.
 
-Some points to remember:
+Usage
+=====
 
-* Import the db.sql file in your database.
+* Import the db.sql file in database.
 
 * Activate cURL extension of PHP
 
-Working Prototype : <a href="http://shivambansal.com/scrapper.php" target="_blank">Here</a>
+Working Prototype : <a href="http://shivambansal.com/YouScrapper/" target="_blank">Here</a>
