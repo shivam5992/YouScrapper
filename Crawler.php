@@ -6,6 +6,17 @@ Class Crawler
 	{		
 		$this->curl= curl_init();
 	}
+	//This is used for login.
+	function logIn($loginActionUrl,$parameters)
+	{
+			curl_setopt ($this->curl, CURLOPT_URL,$loginActionUrl);	
+			curl_setopt ($this->curl, CURLOPT_POST, 1);	
+			curl_setopt ($this->curl, CURLOPT_POSTFIELDS, $parameters);	
+			curl_setopt ($this->curl, CURLOPT_COOKIEJAR, 'cookie.txt');	
+			curl_setopt ($this->curl, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt ($this->curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);			
+			curl_exec ($this->curl);						
+	}
 	function getContent($url)
 	{
 		curl_setopt($this->curl, CURLOPT_URL, $url);	
@@ -13,6 +24,7 @@ Class Crawler
 		$content=curl_exec ($this->curl);	
 		return $content;
 	}
+	
 	function hasProtocol($url)
 	{			
 		return strpos($url,"//");		
@@ -21,6 +33,7 @@ Class Crawler
 	{
 		return substr($url,0,strrpos($url,"/"));
 	}
+	//Convert the link as It should be
 	function convertLink($domain,$url,$link)
 	{
 		
@@ -32,7 +45,8 @@ Class Crawler
 		{			
 			return $url;			
 		}		
-	   else if(substr($link,0,1)=="/")
+		//else if((strpos($link,'/'))==0)
+                else if(substr($link,0,1)=="/")
 		{
 			return $domain.$link;			
                         
@@ -58,9 +72,14 @@ Class Crawler
 			$links['link'][$i]=$this->convertLink($domain,$url,$href->getAttribute('href'));
 			$links['text'][$i]=$href->nodeValue;		
 			$p1 = $p->item($i);
+			//$links['ptag'][$i]=$p1->nodeValue;
+			//echo $links['ptag'][$i];
 		}
 		return  $links;
+		
 	}
+	//function for crawl image
+	
 	
 	function crawlImage($url)
 	{
@@ -69,7 +88,8 @@ Class Crawler
 		$dom = new DOMDocument();
 		@$dom->loadHTML($content);		
 		$xdoc = new DOMXPath($dom);	
-		$atags = $xdoc ->evaluate("//a");			
+		//Read the images that is between <a> tag
+		$atags = $xdoc ->evaluate("//a");		//Read all a tags	
 		$index=0;
 		for ($i = 0; $i < $atags->length; $i++) 
 		{
